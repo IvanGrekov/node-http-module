@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+import fs from 'fs';
 import { resolvePath, checkIfPathIncludesExt } from './path.utils.js';
 
 export const readFile = async (filePath) => {
@@ -7,16 +7,29 @@ export const readFile = async (filePath) => {
         err: null,
     };
 
-    await fs
-        .readFile(filePath, 'utf-8')
-        .then((data) => {
-            result.data = data;
-        })
-        .catch((err) => {
-            result.err = err;
-        });
+    return new Promise((resolve) => {
+        fs.readFile(filePath, 'utf-8', (err, data) => {
+            if (err) {
+                result.err = err;
+                resolve(result);
+            }
 
-    return result;
+            result.data = data;
+            resolve(result);
+        });
+    });
+
+    // NOTE: way with fs/promises
+    // await fs
+    //     .readFile(filePath, 'utf-8')
+    //     .then((data) => {
+    //         result.data = data;
+    //     })
+    //     .catch((err) => {
+    //         result.err = err;
+    //     });
+
+    // return result;
 };
 
 export const return400page = async (res) => {

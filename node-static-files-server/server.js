@@ -3,7 +3,7 @@ import { return400page, returnFile } from './utils/files.utils.js';
 
 const SERVER_PORT = 4000;
 export const SERVER_URL = `http://localhost:${SERVER_PORT}`;
-const URL_PREFIX = '/file';
+const URL_PREFIX = '/file/';
 
 const server = http.createServer((req, res) => {
     const requestUrl = req.url;
