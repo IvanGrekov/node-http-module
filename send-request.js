@@ -4,12 +4,12 @@ const PORT = process.env.PORT;
 
 // axios.interceptors.response.use(
 //     (value) => {
-//         console.log('value from interceptor', value);
+//         console.log('value from interceptor');
 
 //         return value;
 //     },
 //     (error) => {
-//         console.log('error from interceptor', error);
+//         console.log('error from interceptor');
 
 //         throw error;
 //     },
@@ -45,10 +45,10 @@ const PORT = process.env.PORT;
 //     return { error: responseError || error };
 // };
 
-// api.interceptors.request.use(checkTokenInterceptor);
-// api.interceptors.response.use(responseSuccessInterceptor, networkErrorInterceptor);
+api.interceptors.request.use(checkTokenInterceptor);
+api.interceptors.response.use(responseSuccessInterceptor, networkErrorInterceptor);
 
 axios
-    .get(`http://localhost:${PORT}/index?pageNumber=1&age=20&age=21`)
+    .get(`http://localhosst:${PORT}/index?pageNumber=1&age=20&age=21`)
     .then((res) => console.log('data', res.data))
     .catch(() => console.error('Error occurred'));

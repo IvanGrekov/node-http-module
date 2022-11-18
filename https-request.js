@@ -3,7 +3,7 @@ import https from 'https';
 
 //#region axios
 // axios
-//     .get('https://mate.academy/students-api/goods/2')
+//     .get('https://mate.academy/students-api/goods/125')
 //     .then((res) => {
 //         console.log(res.data);
 //     })
@@ -11,7 +11,7 @@ import https from 'https';
 //#endregion
 
 //#region https module
-// const request = https.request('https://mate.academy/students-api/goods/2', (res) => {
+// const request = https.request('https://mate.academy/students-api/goods/125', (res) => {
 //     res.setEncoding('utf-8');
 
 //     res.on('data', (data) => {

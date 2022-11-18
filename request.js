@@ -1,16 +1,19 @@
 import http from 'http';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const req = http.request('http://localhost:3000', (res) => {
-    console.log(res.statusCode);
+const request = http.request(`http://localhost:${process.env.PORT}/some-path`, (res) => {
+    console.log('status code', res.statusCode);
+
     res.setEncoding('utf-8');
 
-    res.on('data', (data) => {
-        console.log(data);
+    res.on('data', (chunk) => {
+        console.log('chunk', chunk);
     });
 });
 
-req.on('error', (err) => {
-    console.error(err);
+request.on('error', (err) => {
+    console.log('err', err.message);
 });
 
-req.end();
+request.end();
