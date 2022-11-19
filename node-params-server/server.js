@@ -8,7 +8,7 @@ const server = http.createServer((req, res) => {
     const { pathname, searchParams } = url;
 
     const parts = pathname.slice(1).split('/');
-    const query = Object.fromEntries(searchParams.entries());
+    const query = Object.fromEntries(searchParams);
 
     const result = {
         parts,

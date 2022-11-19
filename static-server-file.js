@@ -1,5 +1,8 @@
 import http from 'http';
+import path from 'path';
 import fs from 'fs';
+import dotenv from 'dotenv';
+dotenv.config();
 
 import { checkIfPathIncludesExt } from './utils/checkIfPathIncludesExt.js';
 import { return404page } from './utils/return404page.js';
@@ -8,16 +11,22 @@ const PORT = process.env.PORT;
 
 const server = http.createServer((req, res) => {
     const { url } = req;
+    const fileName = url.slice(1) || 'index.html';
+    let filePath = path.resolve(`public/${fileName}`);
 
-    let fileName = url.slice(1) || 'index.html';
-    fileName = checkIfPathIncludesExt(fileName) ? fileName : `${fileName}.html`;
+    if (!checkIfPathIncludesExt(filePath)) {
+        filePath += '.html';
+    }
 
-    fs.readFile(`public/${fileName}`, 'utf8', (err, data) => {
-        if (!err) {
+    console.log(filePath);
+
+    fs.readFile(filePath, 'utf-8', (err, data) => {
+        if (err) {
+            return404page(res);
+        } else {
             res.end(data);
+            console.log('data was sent');
         }
-
-        return404page(res);
     });
 });
 

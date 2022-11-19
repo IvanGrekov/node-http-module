@@ -12,10 +12,10 @@ export const readFile = async (filePath) => {
             if (err) {
                 result.err = err;
                 resolve(result);
+            } else {
+                result.data = data;
+                resolve(result);
             }
-
-            result.data = data;
-            resolve(result);
         });
     });
 

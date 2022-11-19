@@ -5,9 +5,11 @@ export const return404page = (res) => {
         if (err) {
             res.statusCode = 500;
             res.end('Error 500');
+            console.log('500 err');
+        } else {
+            res.statusCode = 404;
+            res.end(data);
+            console.log('404 err');
         }
-
-        res.statusCode = 404;
-        res.end(data);
     });
 };

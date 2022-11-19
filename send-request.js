@@ -1,4 +1,6 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const PORT = process.env.PORT;
 
@@ -45,10 +47,10 @@ const PORT = process.env.PORT;
 //     return { error: responseError || error };
 // };
 
-api.interceptors.request.use(checkTokenInterceptor);
-api.interceptors.response.use(responseSuccessInterceptor, networkErrorInterceptor);
+// api.interceptors.request.use(checkTokenInterceptor);
+// api.interceptors.response.use(responseSuccessInterceptor, networkErrorInterceptor);
 
 axios
-    .get(`http://localhosst:${PORT}/index?pageNumber=1&age=20&age=21`)
+    .get(`http://localhost:${PORT}/index?pageNumber=1&age=20&age=21`)
     .then((res) => console.log('data', res.data))
     .catch(() => console.error('Error occurred'));

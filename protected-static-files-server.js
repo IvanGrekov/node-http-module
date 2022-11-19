@@ -1,36 +1,38 @@
 import http from 'http';
+import path from 'path';
 import fs from 'fs';
+import dotenv from 'dotenv';
+dotenv.config();
 
-import { getNormalizedUrl } from './utils/getNormalizedUrl.js';
 import { checkIfPathIncludesExt } from './utils/checkIfPathIncludesExt.js';
 import { return404page } from './utils/return404page.js';
+
+const PORT = process.env.PORT;
 
 const server = http.createServer((req, res) => {
     const {
         url,
         headers: { host },
     } = req;
+    const { pathname } = new URL(url, `http://${host}`);
+    const fileName = pathname.slice(1) || 'index.html';
+    let filePath = path.resolve(`public/${fileName}`);
 
-    const normalizedUrl = getNormalizedUrl(url, `http://${host}`);
-    const { pathname } = normalizedUrl;
+    if (!checkIfPathIncludesExt(filePath)) {
+        filePath += '.html';
+    }
 
-    // if (url.startsWith('/..')) {
-    //     return404page(res);
-    // }
+    console.log(filePath);
 
-    let fileName = pathname.slice(1) || 'index.html';
-    fileName = checkIfPathIncludesExt(fileName) ? fileName : `${fileName}.html`;
-
-    fs.readFile(`public/${fileName}`, 'utf8', (err, data) => {
-        if (!err) {
+    fs.readFile(filePath, 'utf-8', (err, data) => {
+        if (err) {
+            return404page(res);
+        } else {
             res.end(data);
+            console.log('data was sent');
         }
-
-        return404page(res);
     });
 });
-
-const PORT = process.env.PORT;
 
 server.listen(PORT, () => {
     console.log(`Server is rinning on http://localhost:${PORT}`);

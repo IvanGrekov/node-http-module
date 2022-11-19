@@ -1,11 +1,13 @@
 import http from 'http';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const PORT = process.env.PORT;
 
 const options = {
     hostname: 'localhost',
     port: PORT,
-    path: '/../index.js',
+    path: '/../../page.html',
 };
 
 http.get(options, (res) => {
