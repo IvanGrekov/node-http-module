@@ -12,13 +12,14 @@ const PORT = process.env.PORT;
 const server = http.createServer((req, res) => {
     const { url } = req;
     const fileName = url.slice(1) || 'index.html';
-    let filePath = path.resolve(`public/${fileName}`);
+    // let filePath = path.resolve(`public/${fileName}`);
+    let filePath = `./public/${fileName}`;
 
     if (!checkIfPathIncludesExt(filePath)) {
         filePath += '.html';
     }
 
-    console.log(filePath);
+    // console.log(filePath);
 
     fs.readFile(filePath, 'utf-8', (err, data) => {
         if (err) {
